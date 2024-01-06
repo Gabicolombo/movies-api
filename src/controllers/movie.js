@@ -50,6 +50,8 @@ const registerMovie = async (req, res, next) => {
     const bucketName = "api-movies";
     const key = req.file.originalname;
 
+    if(await Movie.findOne({nameImage: key})) return res.status(400).json({message: 'Update the image'});
+
     const params = {
       Bucket: bucketName,
       Key: key,
@@ -63,16 +65,13 @@ const registerMovie = async (req, res, next) => {
     const newMovie = new Movie({
       id: len.length + 1,
       ...req.body,
-      image: image.Location
+      image: image.Location,
+      nameImage: key,
     });
    
-    newMovie.save()
-      .then(() => {
-        return res.status(200).json({ message: 'Sucessfully added' });
-      })
-      .catch((error) => {
-        return res.status(500).json({ message: `Error: ${error}` });
-      });
+    newMovie.save();
+
+    return res.status(200).json({ message: 'Sucessfully added' });
 
   } catch (err) {
     console.error(err);
@@ -96,7 +95,32 @@ const updateMovie = async (req, res, next) => {
   }
 };
 
-const deleteMovie = async (req, res, next) => { };
+const deleteMovie = async (req, res, next) => {
+  try{
+
+    const movie = await Movie.findOne({id: req.params.id});
+  
+    if(movie == null) return res.status(404).json({ message: 'Movie not found' });
+
+    const bucketName = "api-movies";
+    const key = movie.nameImage;
+
+    const params = {
+      Bucket: bucketName,
+      Key: key,
+    };
+
+    cosClient.deleteObject(params).promise();
+
+    await Movie.deleteOne({id: req.params.id});
+
+    return res.status(200).json({ message: 'Movie deleted successfully' });
+
+  }catch(err){
+    console.error(err);
+    return res.status(500).json({ message: err.message });
+  }
+};
 
 module.exports = {
   getAllMovies,

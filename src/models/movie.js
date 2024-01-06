@@ -7,7 +7,8 @@ const MovieSchema = new mongoose.Schema({
   year: { type: String, required: true },
   synopsis: { type: String, required: true },
   runtime: { type: String, required: true },
-  image: { type: String, required: true }
+  image: { type: String, required: true, unique: true },
+  nameImage: { type: String, required: true, unique: true },
 });
 
 MovieSchema.pre('save', async function(next){

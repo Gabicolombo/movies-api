@@ -11,5 +11,6 @@ const baseUrl = '/movie';
 routes.post(`${baseUrl}`, upload.single('image'), controller.registerMovie);
 routes.get(`${baseUrl}s`, controller.getAllMovies);
 routes.get(`${baseUrl}/:id`, controller.getMovie);
+routes.put(`${baseUrl}/:id`, upload.single('image'), controller.updateMovie);
 
 module.exports = routes;

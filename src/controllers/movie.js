@@ -14,9 +14,33 @@ const cosConfig = {
 
 const cosClient = new cos.S3(cosConfig);
 
-const getAllMovies = async (req, res, next) => { };
+const getAllMovies = async (req, res, next) => {
+  try{
 
-const getMovie = async (req, res, next) => { };
+    const movies = await Movie.find({});
+
+    if(movies.length == 0) return res.status(200).json({message: 'No movies found'});
+
+    return res.status(200).json(movies);
+
+  }catch(err){
+    console.error(err);
+  }
+};
+
+const getMovie = async (req, res, next) => {
+  try{
+
+    const movie = await Movie.findOne({id: req.params.id});
+  
+    if(movie == null) return res.status(200).json({message: 'No movie found'});
+
+    return res.status(200).json(movie);
+
+  }catch(err){
+    console.error(err);
+  }
+};
 
 const registerMovie = async (req, res, next) => {
   try {

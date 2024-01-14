@@ -24,4 +24,6 @@ db();
 
 app.listen(2828, () => {
   console.info('Server is up');
-})
+});
+
+module.exports = app;

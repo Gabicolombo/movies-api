@@ -3,6 +3,7 @@ const body_parser = require('body-parser');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const path = require('path');
+const { eventEmitter } = require('./appEventEmitter');
 
 dotenv.config({ path: path.resolve("./env/config.env") });
 
@@ -21,6 +22,23 @@ app.use(MovieRoutes);
 app.use(GenreRoutes);
 
 db();
+
+// listen the event emitter
+eventEmitter.on('getMovie', (data) => {
+  console.log('getMovie event: ', data);
+})
+
+eventEmitter.on('AddMovie', (data) => {
+  console.log('AddMovie event: ', data);
+});
+
+eventEmitter.on('updateMovie', (data) => {
+  console.log('updateMovie event: ', data);
+});
+
+eventEmitter.on('deleteMovie', (data) => {
+  console.log('deleteMovie event: ', data);
+});
 
 app.listen(2828, () => {
   console.info('Server is up');

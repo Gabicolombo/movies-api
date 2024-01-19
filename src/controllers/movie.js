@@ -1,5 +1,6 @@
 const cos = require('ibm-cos-sdk');
 const mongoose = require('mongoose');
+const { eventEmitter } = require('../appEventEmitter');
 
 const Movie = require('../models/movie');
 const Genre = require('../models/genre');
@@ -34,6 +35,8 @@ const getMovie = async (req, res, next) => {
     const movie = await Movie.findOne({id: req.params.id});
   
     if(movie == null) return res.status(200).json({message: 'No movie found'});
+
+    eventEmitter.emit('getMovie', movie);
 
     return res.status(200).json(movie);
 
@@ -71,6 +74,8 @@ const registerMovie = async (req, res, next) => {
    
     newMovie.save();
 
+    eventEmitter.emit('AddMovie', 'Sucessfully Added');
+
     return res.status(200).json({ message: 'Sucessfully added' });
 
   } catch (err) {
@@ -86,6 +91,8 @@ const updateMovie = async (req, res, next) => {
     if(movie == null) return res.status(404).json({ message: 'Movie not found' });
 
     await Movie.updateOne({id: req.params.id}, { $set: req.body});
+
+    eventEmitter.emit('updateMovie', 'Movie updated successfully');
 
     return res.status(200).json({ message: 'Movie updated successfully' });
 
@@ -113,6 +120,8 @@ const deleteMovie = async (req, res, next) => {
     cosClient.deleteObject(params).promise();
 
     await Movie.deleteOne({id: req.params.id});
+
+    eventEmitter.emit('deleteMovie', 'Movie deleted successfully');
 
     return res.status(200).json({ message: 'Movie deleted successfully' });
 

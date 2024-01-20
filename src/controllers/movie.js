@@ -34,7 +34,7 @@ const getMovie = async (req, res, next) => {
 
     const movie = await Movie.findOne({id: req.params.id});
   
-    if(movie == null) return res.status(200).json({message: 'No movie found'});
+    if(movie == null) return res.status(404).json({message: 'No movie found'});
 
     eventEmitter.emit('getMovie', movie);
 
@@ -80,6 +80,7 @@ const registerMovie = async (req, res, next) => {
 
   } catch (err) {
     console.error(err);
+    return res.status(500).json({ message: `${err}` });
   }
 }
 

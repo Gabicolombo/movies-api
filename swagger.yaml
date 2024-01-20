@@ -1,0 +1,173 @@
+swagger: '2.0'
+info:
+  description: Movie API
+  version: 1.0.0
+  title: API movies
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+
+tags:
+- name: admins
+  description: Secured Admin-only calls
+- name: developers
+  description: Operations available to regular developers
+
+paths:
+  /movie/{id}:
+    get:
+      tags:
+      - developers
+      summary: searches movie by id
+      operationId: getMovie
+      description: |
+        By passing in the appropriate id, you can search for
+        available movie in the system
+      produces:
+      - application/json
+      parameters:
+      - in: id
+        name: searchId
+        description: pass an id search for looking up movie
+        required: true
+        type: string
+      responses:
+        200:
+          description: search results matching criteria
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Movie'
+        404:
+          description: "No movie found"
+    put:
+      summary: "Updates a movie"
+      description: "Updates the details of an existing movie"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          type: "string"
+          description: "ID of the movie to update"
+        - in: "body"
+          name: "body"
+          description: "Updated movie object"
+          required: true
+          schema:
+            $ref: "#/definitions/Movie"
+      responses:
+        200:
+          description: "Movie updated successfully"
+        404:
+          description: "Movie not found"
+    delete:
+      summary: "Deletes a movie"
+      description: "Deletes a single movie based on the ID"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          type: "string"
+          description: "ID of the movie to delete"
+      responses:
+        200:
+          description: "Movie deleted successfully"
+        404:
+          description: "Movie not found"
+    
+  /movies:
+    get:
+      tags:
+      - developers
+      summary: searches movies
+      operationId: getAllMovies
+      description: |
+        You can search for
+        available movie in the system
+      produces:
+      - application/json
+      responses:
+        200:
+          description: search results matching criteria
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Movie'
+        400:
+          description: "No movies found"
+  /movie:
+    post:
+      tags:
+      - admins
+      summary: adds an movie item
+      operationId: registerMovie
+      description: Adds an movie to the system
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: movieItem
+        description: Movie item to add
+        schema:
+          $ref: '#/definitions/Movie'
+      responses:
+        201:
+          description: "Successfully added"
+        400:
+          description: "Update the image"
+        500:
+          description: "Error"
+
+definitions:
+  Movie:
+    type: object
+    required:
+    - id
+    - title
+    - genre
+    - year
+    - synopsis
+    - runtime
+    - image
+    - nameImage
+    properties:
+      id:
+        type: Number
+        example: 1
+      title:
+        type: string
+        example: 'Harry Potter'
+      genre:
+        type: string
+        example: 'Ficção Ciêntifica'
+      year:
+        type: string
+        example: '2017'
+      synopsis:
+        type: string
+        example: ''
+      runtime:
+        type: string
+        example: '03h20'
+      image:
+        type: string
+        example: 'http://uri_imagem.com'
+      nameImage:
+        type: string
+        example: 'name_image.jpg'
+  Genre:
+    required:
+    - id
+    - name
+    properties:
+      name:
+        type: string
+        example: 'Comédia'
+      id:
+        type: Number
+        example:  1
+
+schemes:
+ - https

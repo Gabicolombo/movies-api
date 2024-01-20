@@ -12,7 +12,6 @@ tags:
   description: Secured Admin-only calls
 - name: developers
   description: Operations available to regular developers
-
 paths:
   /movie/{id}:
     get:
@@ -74,7 +73,6 @@ paths:
           description: "Movie deleted successfully"
         404:
           description: "Movie not found"
-    
   /movies:
     get:
       tags:

@@ -9,7 +9,8 @@
   "scripts": {
     "test": "npx jest",
     "dev": "nodemon src/app.js",
-    "start": "node src/app.js"
+    "start": "node src/app.js",
+    "build": "bash build.sh"
   },
   "keywords": [],
   "author": "",

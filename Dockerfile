@@ -8,4 +8,8 @@ COPY . .
 
 RUN npm install
 
+EXPOSE 8080
+
 CMD ["npm", "start"]
+
+#http://localhost:8080/movies

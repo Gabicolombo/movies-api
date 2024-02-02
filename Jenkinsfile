@@ -31,16 +31,6 @@ pipeline {
                 }
             }
         }
-
-        // stage('Publicar Artefato') {
-        //     steps {
-        //         script {
-        //             // Aqui você pode fazer upload do artefato para um servidor ou serviço de hospedagem
-        //             // Por exemplo, se estiver usando AWS S3:
-        //             sh 'aws s3 cp build/ seu-bucket/'
-        //         }
-        //     }
-        // }
     }
 
     post {

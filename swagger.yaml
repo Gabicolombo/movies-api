@@ -43,17 +43,17 @@ paths:
       summary: "Updates a movie"
       description: "Updates the details of an existing movie"
       parameters:
-        - name: "id"
-          in: "path"
-          required: true
-          type: "string"
-          description: "ID of the movie to update"
-        - in: "body"
-          name: "body"
-          description: "Updated movie object"
-          required: true
-          schema:
-            $ref: "#/definitions/Movie"
+      - name: "id"
+        in: "path"
+        required: true
+        type: "string"
+        description: "ID of the movie to update"
+      - in: "body"
+        name: "body"
+        description: "Updated movie object"
+        required: true
+        schema:
+          $ref: "#/definitions/Movie"
       responses:
         200:
           description: "Movie updated successfully"
@@ -63,11 +63,11 @@ paths:
       summary: "Deletes a movie"
       description: "Deletes a single movie based on the ID"
       parameters:
-        - name: "id"
-          in: "path"
-          required: true
-          type: "string"
-          description: "ID of the movie to delete"
+      - name: "id"
+        in: "path"
+        required: true
+        type: "string"
+        description: "ID of the movie to delete"
       responses:
         200:
           description: "Movie deleted successfully"
@@ -101,9 +101,9 @@ paths:
       operationId: registerMovie
       description: Adds an movie to the system
       consumes:
-      - application/json
+      - multipart/form-data
       produces:
-      - application/json
+      - multipart/form-data
       parameters:
       - in: body
         name: movieItem
@@ -150,7 +150,7 @@ definitions:
         type: string
         example: '03h20'
       image:
-        type: string
+        type: file
         example: 'http://uri_imagem.com'
       nameImage:
         type: string
@@ -165,7 +165,7 @@ definitions:
         example: 'Comédia'
       id:
         type: Number
-        example:  1
+        example: 1
 
 schemes:
- - https
+- https

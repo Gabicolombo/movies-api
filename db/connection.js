@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-module.exports = async() => {
+const connectDB = async() => {
   try{
 
     const url = `mongodb+srv://${process.env.user}:${process.env.pwd}@movies-1.43n9fpn.mongodb.net/?retryWrites=true&w=majority`;
@@ -10,4 +10,18 @@ module.exports = async() => {
   }catch(err) {
     console.error(err);
   }
+}
+
+const disconnectDB = async () => {
+  try {
+    await mongoose.disconnect();
+    console.info('Disconnected from database');
+  } catch (error) {
+    console.error('Error disconnecting from database:', error);
+  }
+};
+
+module.exports = {
+  connectDB,
+  disconnectDB
 }

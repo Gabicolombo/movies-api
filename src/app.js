@@ -7,7 +7,7 @@ const { eventEmitter } = require('./appEventEmitter');
 
 dotenv.config({ path: path.resolve("./env/config.env") });
 
-const db = require('../db/connection');
+const {connectDB} = require('../db/connection');
 const MovieRoutes = require('./routes/movie');
 const GenreRoutes = require('./routes/genre');
 
@@ -21,7 +21,7 @@ app.use(body_parser.json());
 app.use(MovieRoutes);
 app.use(GenreRoutes);
 
-db();
+connectDB();
 
 // listen the event emitter
 eventEmitter.on('getMovie', (data) => {
@@ -40,8 +40,8 @@ eventEmitter.on('deleteMovie', (data) => {
   console.log('deleteMovie event: ', data);
 });
 
-app.listen(2828, () => {
+const server = app.listen(2828, () => {
   console.info('Server is up');
 });
 
-module.exports = app;
+module.exports = { app, server };

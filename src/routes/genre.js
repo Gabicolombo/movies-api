@@ -5,6 +5,7 @@ const routes = express.Router();
 
 const baseUrl = '/genre';
 
-routes.post(`${baseUrl}`, controller);
+routes.get(`${baseUrl}`, controller.getGenre);
+routes.post(`${baseUrl}`, controller.registerGenre);
 
 module.exports = routes;

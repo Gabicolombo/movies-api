@@ -2,8 +2,8 @@
 echo ""
 echo ""
 echo "====> Searching for the tag value..."
-path="chart/values.yaml"
-value_tag=$(grep "tag" $path | cut -d':' -f2 |tr -d '[:space:]')
+path="package.json"
+value_tag=$(grep "version" $path | cut -d':' -f2 |tr -d '[:space:]')
 echo "Value: $value_tag"
 echo ""
 echo ""

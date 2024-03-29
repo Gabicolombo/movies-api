@@ -18,7 +18,14 @@ const cosClient = new cos.S3(cosConfig);
 const getAllMovies = async (req, res, next) => {
   try{
 
-    const movies = await Movie.find({});
+    const movies = await Movie.aggregate([
+      {
+        $project: {
+          _id: 0,
+          __v: 0
+        }
+      }
+    ]).allowDiskUse(true);
 
     if(movies.length == 0) return res.status(200).json({message: 'No movies found'});
 

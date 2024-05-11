@@ -79,11 +79,12 @@ const registerMovie = async (req, res, next) => {
       nameImage: key,
     });
    
-    newMovie.save();
+    const savedMovie = await newMovie.save();
+    console.log('New movie saved:', savedMovie);
 
-    eventEmitter.emit('AddMovie', 'Sucessfully Added');
+    eventEmitter.emit('AddMovie', 'Successfully Added');
 
-    return res.status(200).json({ message: 'Sucessfully added' });
+    return res.status(200).json({ message: 'Successfully added' });
 
   } catch (err) {
     console.error(err);

@@ -1,44 +1,41 @@
 # Movies API
 
-A Movies API é uma API RESTful projetada para gerenciar dados de filmes. Ela utiliza o IBM Cloud Object Storage para armazenar imagens e o MongoDB para armazenar outros dados relacionados a filmes.
+The Movies API is a RESTful API designed to manage movie data. It uses IBM Cloud Object Storage to store images and MongoDB to store other movie-related data.
 
-## Como começar
+## Getting Started
 
-Para começar com a Movies API, siga estes passos:
+To get started with the Movies API, follow these steps:
 
-1. Clone o repositório:
+1. Clone the repository: 
 
     ```
     git clone https://github.com/Gabicolombo/movies-api.git
     ```
 
-2. Instale as dependências:
+2. Install the dependencies:
 
     ```
     npm install
     ```
 
-3. Execute a API localmente:
+3. Run the API locally:
 
     ```
     npm run dev
     ```
 
-## Integração com o Jenkins
+## Jenkins Integration
 
-Nós integramos o Jenkins para rastrear commits enviados para o branch `main`. Essa integração fornece alertas e ajuda a visualizar o histórico de commits. Abaixo está uma captura de tela mostrando o histórico de commits no Jenkins:
+We have integrated Jenkins to track commits pushed to the main branch. This integration provides alerts and helps visualize the commit history. Below is a screenshot showing the commit history in Jenkins:
 
 ![Histórico de Commits no Jenkins](https://github.com/Gabicolombo/movies-api/assets/65355183/1d35726d-2405-4d0a-830b-8cbf9b954e84)
 
-## Tecnologias Utilizadas
+## Technologies Used
 
 - Node.js
 - MongoDB
 - IBM Cloud Object Storage
 - Jenkins
 
-## Licença
-
-Este projeto está licenciado sob a Licença MIT - consulte o arquivo [LICENSE](LICENSE) para obter mais detalhes.
 
 

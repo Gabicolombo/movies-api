@@ -40,7 +40,7 @@ eventEmitter.on('deleteMovie', (data) => {
   console.log('deleteMovie event: ', data);
 });
 
-const server = app.listen(2828, () => {
+const server = app.listen(process.env.port, () => {
   console.info('Server is up');
 });
 

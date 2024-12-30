@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const connectDB = async() => {
   try{
 
-    const url = `mongodb+srv://${process.env.user}:${process.env.pwd}@movies-1.43n9fpn.mongodb.net/?retryWrites=true&w=majority`;
+    const url = `mongodb+srv://${process.env.user}:${process.env.password}@movies-1.43n9fpn.mongodb.net/?retryWrites=true&w=majority`;
     await mongoose.connect(url);
     console.info('Connected to database');
 

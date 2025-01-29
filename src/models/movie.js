@@ -19,7 +19,6 @@ MovieSchema.pre('save', async function(next){
       throw new Error('Genre not found');
     }
 
-    // Vincula o Genre ao Movie antes de salvar
     this.genre = genre.name;
     next();
   } catch (error) {

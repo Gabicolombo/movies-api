@@ -5,7 +5,7 @@ const { eventEmitter } = require('../appEventEmitter');
 const Movie = require('../models/movie');
 const Genre = require('../models/genre');
 
-// Configurações do cliente COS
+// cost client
 const cosConfig = {
   endpoint: process.env.endpoint,
   apiKeyId: process.env.apikeyid,
@@ -65,11 +65,11 @@ const registerMovie = async (req, res, next) => {
     const params = {
       Bucket: bucketName,
       Key: key,
-      Body: req.file.buffer, // Dados da imagem em formato de buffer
+      Body: req.file.buffer, 
       ContentType: req.file.mimetype,
     };
 
-    // Realizar o upload para o bucket
+ 
     const image = await cosClient.upload(params).promise();
 
     const newMovie = new Movie({

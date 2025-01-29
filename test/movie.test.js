@@ -1,5 +1,5 @@
 const supertest = require('supertest');
-const { app } = require('../src/app');
+const { app, server } = require('../src/app');
 const cos = require('ibm-cos-sdk');
 const Movie = require('../src/models/movie');
 const Genre = require('../src/models/genre');
@@ -55,17 +55,16 @@ describe('Movie controller', () => {
   });
 
   afterAll(async () => {
-    await mongoose.connection.close();
+    jest.clearAllMocks();
+    server.close();
+    await mongoose.disconnect();
     await mongoServer.stop();
   });
 
 
   describe('GET /movies', () => {
-
-    afterAll(async () => {
-      await deleteMany();
-    })
     it('Should return status 200 and an empty message when no movies are found', async () => {
+      await deleteMany();
       const response = await supertest(app).get('/movies');
       expect(response.statusCode).toBe(200);
       expect(response.body).toEqual({ message: 'No movies found' });
@@ -87,6 +86,7 @@ describe('Movie controller', () => {
 
   describe('GET /movie', () => {
     it('Should return status 200 and an empty message when no movies are found', async () => {
+      await deleteMany();
       const response = await supertest(app).get('/movie/1');
       expect(response.statusCode).toBe(404);
       expect(response.body).toEqual({ message: 'No movie found' });
@@ -103,12 +103,7 @@ describe('Movie controller', () => {
   });
 
   describe('Delete /movie/id', () => {
-    afterAll(async() => {
-      await deleteMany();
-    });
-
     it('should return 200 when find and delete a movie', async() => {
-      
       const response = await supertest(app).delete('/movie/1');
       expect(response.statusCode).toBe(200);
       expect(response.text).toBe("{\"message\":\"Movie deleted successfully\"}");
@@ -130,8 +125,8 @@ describe('Movie controller', () => {
 
     it('should return 200 when find and update the movie', async() => {
       const response = await supertest(app).put('/movie/1').field('title', 'newTitle');
-      expect(response.statusCode).toBe(200);
-      expect(await Movie.find({ title: 'newTitle'})).toBeDefined();
+      expect(response.statusCode).toBe(200);const updatedMovie = await Movie.find({ title: 'newTitle' });
+      expect(updatedMovie.length).toBeGreaterThan(0);
       expect(response.text).toBe("{\"message\":\"Movie updated successfully\"}");
     });
 
